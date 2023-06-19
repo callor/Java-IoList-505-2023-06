@@ -39,8 +39,19 @@ public interface BuyerDao {
 	 * 2. 고객 전화번호로 조회하기
 	 */
 	
+	@Select( "SELECT * FROM " 
+				+ DBContract.TABLE.BUYER 
+				+ " WHERE buName LIKE buName '%' || #{name} || '%' ")
 	public List<BuyerDto> findByName(String name) ;
+
+	@Select( "SELECT * FROM " 
+			+ DBContract.TABLE.BUYER 
+			+ " WHERE buName LIKE buTel '%' || #{tel} || '%' ")
 	public List<BuyerDto> findByTel(String tel);
+	
+	@Select( "SELECT max(buid) FROM " + DBContract.TABLE.BUYER)
+	public String getMaxId();
+	
 	
 	/*
 	 * select(조회) method 를 만들때 주의 사항
