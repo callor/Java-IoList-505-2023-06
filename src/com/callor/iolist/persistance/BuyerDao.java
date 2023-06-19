@@ -3,10 +3,13 @@ package com.callor.iolist.persistance;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.callor.iolist.config.DBContract;
 import com.callor.iolist.models.BuyerDto;
+import com.callor.iolist.persistance.sql.BuyerSQL;
 
 /*
  * DBMS에 Query 를 보내고, 데이터를 받을 method 선언
@@ -25,7 +28,10 @@ public interface BuyerDao {
 				+ " WHERE buId = #{id} ")
 	public BuyerDto findById(String id);
 	
+	@Insert(BuyerSQL.INSERT)
 	public int insert(BuyerDto dto);
+	
+	@Update(BuyerSQL.UPDATE)
 	public int update(BuyerDto dto);
 	
 	@Delete("DELETE FROM " 
