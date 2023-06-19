@@ -59,6 +59,7 @@ public class BuyerServiceImplV1 implements BuyerService {
 				strBuId = this.newBuId();
 //				System.out.println("새로 생성된 ID : " + strBuId);
 			}
+			
 			// 고객ID가 strBuId 에 담겨있는데
 			// 키보드로 입력한 ID 이거나, 새로 생성한 ID 일 것이다
 			// strBuId 에 담긴 고객ID 를 findByBuId() 에게 전달한다
