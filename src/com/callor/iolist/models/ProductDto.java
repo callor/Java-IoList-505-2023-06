@@ -39,6 +39,15 @@ public class ProductDto {
 		this.pOPrice = (int)oprice;
 		
 	}
+	/*
+	 * pIPrice 는 변수에 직접 접근할수 없도록 private 으로 선언했다
+	 * 만약 외부에서 ProductDto 객체를 통하여 pIPrice 값을 읽으려고 하면
+	 * private 으로 선언된 관계상 값을 읽지 못한다
+	 * 외부에서 값을 읽기(참조)를 할수 있도록 getter() method 로 선언
+	 * 
+	 * 데이터 클래스에서 private 으로 선언된 칼럼(속성, 변수)는 
+	 * getter(), setter() method 가 있어야 한다
+	 */
 	public int getIPrice() {
 		return this.pIPrice;
 	}
