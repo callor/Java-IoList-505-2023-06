@@ -47,12 +47,12 @@ public interface BuyerDao {
 	
 	@Select( "SELECT * FROM " 
 				+ DBContract.TABLE.BUYER 
-				+ " WHERE buName LIKE buName '%' || #{name} || '%' ")
+				+ " WHERE buName LIKE '%' || #{name} || '%' ")
 	public List<BuyerDto> findByName(String name) ;
 
 	@Select( "SELECT * FROM " 
 			+ DBContract.TABLE.BUYER 
-			+ " WHERE buName LIKE buTel '%' || #{tel} || '%' ")
+			+ " WHERE buTel LIKE '%' || #{tel} || '%' ")
 	public List<BuyerDto> findByTel(String tel);
 	
 	@Select( "SELECT max(buid) FROM " + DBContract.TABLE.BUYER)

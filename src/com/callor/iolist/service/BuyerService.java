@@ -20,7 +20,7 @@ public interface BuyerService {
 	
 	// 한 사람의 고객정보 출력하기
 	// Dto 정보를 매개변수를 통하여 전달받고 출력하기
-	public void PrintBuyer(BuyerDto buyerDto) ;
+	public void printBuyer(BuyerDto buyerDto) ;
 	
 	// 고객정보 조회하기
 	// ID 조회하기, 이름으로 조회하기, 전화번호로 조회하기
@@ -28,6 +28,8 @@ public interface BuyerService {
 	
 	// 고객ID 를 입력받고, 찾은 고객정보를 return 하기
 	public BuyerDto findByBuId();
+	
+	public BuyerDto findByBuId(String buId);
 	
 	/*
 	 * 고객이름을 입력받고
