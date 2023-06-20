@@ -10,9 +10,9 @@ public class BuyerSQL {
 
 	public static final String UPDATE 
 			= " UPDATE " + DBContract.TABLE.BUYER + " SET "
-			+ " buName	= #{buName}, "
-			+ " buTel	= #{buTel}, "
-			+ " buAddr	= #{buAddr},"
+			+ " 	buName	= #{buName}, "
+			+ " 	buTel	= #{buTel}, "
+			+ " 	buAddr	= #{buAddr} "
 			+ " WHERE buId	= #{buId} "
 			+ "";
 	
