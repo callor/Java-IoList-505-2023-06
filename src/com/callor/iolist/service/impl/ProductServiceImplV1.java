@@ -65,7 +65,11 @@ public class ProductServiceImplV1 implements ProductService{
 			String strName = this.inputValue("상품명", productDto.pName);
 			if(strName.equals("QUIT")) return;
 			else if(strName.equals("RE")) continue;
-			else productDto.pName = strName;
+			else if(productDto.pName == null && strName.isEmpty()) {
+				HelpMessage.ERROR("상품명은 반드시 입력해야합니다");
+				continue;
+			}
+			productDto.pName = strName;
 			break;
 		}
 		HelpMessage.ALERT("입력받은 상품명 : " + productDto.pName);
@@ -75,7 +79,11 @@ public class ProductServiceImplV1 implements ProductService{
 			String strName = this.inputValue("품목명", productDto.pItem);
 			if(strName.equals("QUIT")) return;
 			else if(strName.equals("RE")) continue;
-			else productDto.pItem = strName;
+			else if(productDto.pItem == null && strName.isEmpty()) {
+				HelpMessage.ERROR("품목명을 입력해 주세요");
+				continue;
+			}
+			productDto.pItem = strName;
 			break;
 		}
 		HelpMessage.ALERT("입력받은 품목 : " + productDto.pItem);
@@ -101,6 +109,21 @@ public class ProductServiceImplV1 implements ProductService{
 					+ productDto.getIPrice());
 		HelpMessage.ALERT("계산한 매출단가 : " 
 					+ productDto.pOPrice);
+		
+		int result = 0;
+		try {
+			result = proDao.insert(productDto);
+			if(result > 0) HelpMessage.OK("상품정보 추가 OK~~");
+		} catch (Exception e) {
+			result = proDao.update(productDto);
+			if(result > 0) HelpMessage.OK("상품정보 수정 OK");
+		}
+		if(result < 1) {
+			HelpMessage.ERROR(
+			"상품정보 추가, 수정 중에 문제 발생",
+			"상품정보 추가, 수정 실패");
+		}
+		
 	}
 	
 	protected String inputValue(String title, String value) {
@@ -114,8 +137,10 @@ public class ProductServiceImplV1 implements ProductService{
 		if(value == null && strValue.isEmpty()) {
 			HelpMessage.ERROR(title + " 는(은) 반드시 입력해야 합니다");
 			return "RE";
-		} else if(!strValue.isEmpty()) return strValue;
-		return null;
+		} else if(value != null && strValue.isEmpty()) {
+			return value;
+		}
+		return strValue;
 	}
 
 	@Override

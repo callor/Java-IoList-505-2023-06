@@ -8,7 +8,7 @@ public class ProductSQL {
 			"INSERT INTO " + DBContract.TABLE.PRODUCT
 			+ "(pCode, pName, pItem, pIPrice, pOPrice) "
 			+ "VALUES(#{pCode}, #{pName}, "
-			+ " #{pItem}, #{pIPrice}, #{pOPrice)";
+			+ " #{pItem}, #{pIPrice}, #{pOPrice})";
 	
 	public static final String UPDATE = 
 			" UPDATE " + DBContract.TABLE.PRODUCT
