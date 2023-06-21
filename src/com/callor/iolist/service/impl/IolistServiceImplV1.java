@@ -1,7 +1,10 @@
 package com.callor.iolist.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -248,9 +251,81 @@ public class IolistServiceImplV1 implements IolistService{
 		} // 제일 바깥쪽 while, 장바구니 등록을 연속으로 처리하기 위한 것
 	}
 
+	protected String inputDate() {
+		while(true) {
+			System.out.println( "날짜는 YYYY-MM-DD 형식으로 입력하세요 QUIT : 종료");
+			System.out.print("날짜 입력 >> ");
+			String strDate = scan.nextLine();
+			if(strDate.equals("QUIT")) return null;
+			
+			else if(strDate.isBlank()) {
+				HelpMessage.ERROR("날짜를 입력해 주세요");
+				continue;
+			}
+			SimpleDateFormat checkDate 
+				= new SimpleDateFormat("yyyy-MM-dd");
+			
+			// 현재 System 날짜 getter
+			Date date = new Date(System.currentTimeMillis());
+			
+			// 날짜형 데이터를 문자열형 데이터로 변환
+			// 2023-06-21 형식의 문자열 생성
+			String curDate = checkDate.format(date);
+			
+			// 날짜 형식을 갖춘 문자열형 데이터를
+			// 날짜형(Date type)의 데이터로 변환
+			// "2023-06-21" >> 2023-06-21 날짜 type 데이터
+			// 이 method 는 SimpleDateFormatter 에 설정된 
+			//		형식 문자열(YYYY-MM-dd)에 일치하지 않으면
+			// Exception 을 발생시킨다
+			try {
+				// 문자열 -> 날짜type
+				date = checkDate.parse(strDate);
+				// 날짜type -> 문자열로
+				String result = checkDate.format(date);
+				if(result.equals(strDate)) {
+					return strDate;
+				} else {
+					HelpMessage.ERROR(
+							String.format("날짜가 유효범위를 벗어났습니다",
+							strDate)
+					);
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				HelpMessage.ERROR(
+					String.format("날짜 입력 형식 오류(YYYY-MM-DD) : %s",
+							strDate)
+				);
+			}
+			
+			
+			
+		}
+	}
+	
+	
+	/*
+	 * 기간별 거래 리스트
+	 * 조회시작일자, 조회종료일자를 입력받고
+	 * 해당 기간의 리스트를 출력하기
+	 */
 	@Override
 	public void selectBetwenDate() {
 		// TODO Auto-generated method stub
+		while(true) {
+			System.out.println("기간별 리스트를 출력하기 위하여 날짜 입력");
+			System.out.println("조회 시작일자를 입려하세요");
+			String sDate = this.inputDate();
+			if(sDate == null) return;
+			
+			System.out.println("조회 종료일자를 입려하세요");
+			String eDate = this.inputDate();
+			if(eDate == null) return;
+			
+			List<IolistDto> iolists = iolistDao.selectBetwenDate(sDate, eDate);
+			this.printList(iolists);
+		}
 		
 	}
 
@@ -284,12 +359,51 @@ public class IolistServiceImplV1 implements IolistService{
 	@Override
 	public void selectByBuyerBetweenDate() {
 		// TODO Auto-generated method stub
+		while(true) {
+			System.out.println("데이터 조회");
+			BuyerDto buyerDto = buyerService.findByBuName();
+			if(buyerDto == null) return;
+			
+			System.out.println("거래 기간을 입력해 주세요");
+			System.out.print("조회 시작일자 >> ");
+			String sDate = inputDate();
+			if(sDate == null) return;
+
+			System.out.print("조회 종료일자 >> ");
+			String eDate = inputDate();
+			if(eDate == null) return;
+
+			List<IolistDto> iolists 
+			= iolistDao.selectByBuyerBetweenDate(
+					buyerDto.buId, sDate, eDate);
+			
+			this.printList(iolists);
+		}
 		
 	}
 
 	@Override
 	public void selectByProductBetweenDate() {
 		// TODO Auto-generated method stub
+		while(true) {
+			System.out.println("데이터 조회");
+			ProductDto productDto = productService.findByPName();
+			if(productDto == null) return;
+			
+			System.out.println("거래 기간을 입력해 주세요");
+			System.out.print("조회 시작일자 >> ");
+			String sDate = inputDate();
+			if(sDate == null) return;
+
+			System.out.print("조회 종료일자 >> ");
+			String eDate = inputDate();
+			if(eDate == null) return;
+
+			List<IolistDto> iolists 
+			= iolistDao.selectByProductBetweenDate(
+					productDto.pCode, sDate, eDate);
+			this.printList(iolists);
+		}
 		
 	}
 
