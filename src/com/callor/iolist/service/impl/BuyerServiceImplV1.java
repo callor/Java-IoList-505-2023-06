@@ -176,9 +176,15 @@ public class BuyerServiceImplV1 implements BuyerService {
 			}
 			// return 결과는 empty 이거나 1개 이상이다
 			List<BuyerDto> buyerList = buyerDao.findByName(strBuName);
+			
 			if (buyerList == null || buyerList.isEmpty()) {
 				HelpMessage.ERROR("찾는 고객이름이 없습니다");
 				continue;
+			} else if(buyerList.size() < 2) {
+				// 이름으로 검색한 고객의 데이터가 1개 뿐일 경우
+				// ID 를 검색하는 절차가 필요 없다
+				// 검색한 1개의 데이터를 return 한다.
+				return buyerList.get(0);
 			}
 
 			// List 출력

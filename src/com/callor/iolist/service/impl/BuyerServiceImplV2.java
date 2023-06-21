@@ -30,7 +30,7 @@ public class BuyerServiceImplV2 extends BuyerServiceImplV1{
 	public BuyerDto findByBuId() {
 		while(true) {
 			System.out.println("고객ID를 정수로 입력하세요 QUIT:종료");
-			System.out.print("고객ID >>");
+			System.out.print("고객ID >> ");
 			String strBuId = scan.nextLine();
 			if(strBuId.isBlank()) {
 				HelpMessage.ERROR("고객을 찾으려면 ID 를 입력해 주세요");

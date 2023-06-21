@@ -20,44 +20,44 @@ public interface IolistDao {
 
 	@Select("SELECT * FROM " 
 			+ DBContract.TABLE.IOLIST 
-			+ " ORDER BY io_date, io_time")
+			+ " ORDER BY ioDate, ioTime")
 	public List<IolistDto> selectAll();
 	
 	// 기간별 리스트
 	@Select("SELECT * FROM " 
 			+ DBContract.TABLE.IOLIST
 			+ " WHERE io_date BETWEEN #{sDate} AND #{eDate} "
-			+ " ORDER BY io_date, io_time")
+			+ " ORDER BY ioDate, ioTime")
 	public List<IolistDto> selectBetwenDate(String sDate, String eDate);
 
 	// 고객별 리스트
 	@Select("SELECT * FROM " 
 			+ DBContract.TABLE.IOLIST
-			+ " WHERE io_buid = #{buid} "
-			+ " ORDER BY io_date, io_time")
+			+ " WHERE ioBuid = #{buid} "
+			+ " ORDER BY ioDate, ioTime")
 	public List<IolistDto> selectByBuyer(String buId);
 	
 	// 상품별 리스트
 	@Select("SELECT * FROM " 
 			+ DBContract.TABLE.IOLIST
-			+ " WHERE io_pcode = #{pCode} "
-			+ " ORDER BY io_date, io_time")
+			+ " WHERE ioPcode = #{pCode} "
+			+ " ORDER BY ioDate, ioTime")
 	public List<IolistDto> selectByProduct(String pCode);
 	
 	// 고객 + 기간별 리스트
 	@Select("SELECT * FROM " 
 			+ DBContract.TABLE.IOLIST
-			+ " WHERE io_buid = #{buId} "
-			+ " AND io_date BETWEEN #{sDate} AND #{eDate} "
-			+ " ORDER BY io_date, io_time")
+			+ " WHERE ioBuid = #{buId} "
+			+ " AND ioDate BETWEEN #{sDate} AND #{eDate} "
+			+ " ORDER BY ioDate, ioTime")
 	public List<IolistDto> selectByBuyerBetweenDate(String buId,String sDate, String eDate);
 	
 	// 상품 + 기간별 리스트
 	@Select("SELECT * FROM " 
 			+ DBContract.TABLE.IOLIST
-			+ " WHERE io_pcode = #{pCode} "
-			+ " AND io_date BETWEEN #{sDate} AND #{eDate} "
-			+ " ORDER BY io_date, io_time")
+			+ " WHERE ioPcode = #{pCode} "
+			+ " AND ioDate BETWEEN #{sDate} AND #{eDate} "
+			+ " ORDER BY ioDate, ioTime")
 	public List<IolistDto> selectByProductBetweenDate(String pCode,String sDate, String eDate);
 	
 	@Insert("INSERT INTO " 
